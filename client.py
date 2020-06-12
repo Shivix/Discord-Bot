@@ -1,3 +1,4 @@
+import sys
 import discord
 import random
 from ISSAPI import ISS
@@ -5,11 +6,17 @@ from ISSAPI import ISS
 random.seed()
 
 def readServerToken():
+    try:
+        open("token.txt", "r")
+    except OSError:
+        print("Could not open token.txt")
+        sys.exit(-1)
+        
     with open("token.txt", "r") as file:
         lines = file.readlines()
         return lines[1].strip()
     
-class client(discord.Client):
+class client(discord.Client): # (maybe in constructor) ping discord.com?
     ISSdata = ISS()
     clientID = readServerToken()
     messageCount = 0
@@ -69,6 +76,8 @@ class client(discord.Client):
                 await message.channel.send("Indentation error")
             elif message.content.endswith(".cpp"):
                 await message.channel.send(f"""Missing semi-colon on line: {random.randint(0, 100)}""")
+            elif message.content.endswith(".c"):
+                await message.channel.send("Segmentation fault")
             else:
                 await message.channel.send("What am I supposed to do with this")
             

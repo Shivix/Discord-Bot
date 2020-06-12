@@ -11,7 +11,7 @@ This program uses the [Discord.py](https://discordpy.readthedocs.io/en/latest/) 
 You must add a file named token.txt to the project folder where the first line
 must be your Bot's token and the second line must be your servers token.
 
-_Get bot token from https://discord.com/developers/_
+*Get bot token from https://discord.com/developers/* <br />
+*Server token can be found in your servers settings on discord*
 
-This program can be ran on a server for better uptime and less usage on your
-local machine.
+Linux users may be able to install the correct module and run the program using run.sh

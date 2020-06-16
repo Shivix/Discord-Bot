@@ -91,10 +91,7 @@ class client(discord.Client): # (maybe in constructor) ping discord.com?
             await message.channel.send(self.ISSdata.position())
         
         elif message.content.startswith("!"): # disabled if another bot is on the server
-            if self.botCheck:
-                return
-            else:
-                await message.channel.send("Error: Unknown command")
+            await message.channel.send("Error: Unknown command")
             
 #    async def on_member_join(self, member):
 #        for channel in member.server.channels:

@@ -8,7 +8,7 @@ Feel free to use as a basis for your own bot.
 
 This program uses the [Discord.py](https://discordpy.readthedocs.io/en/latest/) module. 
 
-You must add a file named token.txt to the project folder where the first line
+You must add a file named tokens.txt to the project folder where the first line
 must be your Bot's token and the second line must be your servers token.
 
 *Get bot token from https://discord.com/developers/* <br />

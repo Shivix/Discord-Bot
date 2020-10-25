@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-pip install discord.py #won't do anything if already installed(besides printing that it's installed)
+pip3 install discord.py # ensures dependencies are installed
 
-chmod +x bot.py # makes the python file executable
+chmod +x src/bot.py # makes the python file executable
 
 if ! [ -f "tokens.txt" ]; then #ensures the user has added the tokens.txt file
     echo "tokens.txt not found, please refer to README"

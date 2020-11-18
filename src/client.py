@@ -11,11 +11,11 @@ def readServerToken():
     except OSError:
         print("Could not open token.txt")
         sys.exit(-1)
-        
+
     with open("token.txt", "r") as file:
         lines = file.readlines()
         return lines[1].strip()
-    
+
 class client(discord.Client): # (maybe in constructor) ping discord.com?
     ISSdata = ISS()
     clientID = readServerToken()
@@ -28,10 +28,10 @@ class client(discord.Client): # (maybe in constructor) ping discord.com?
                   "!rollthedice\n" \
                   "!whereistheiss"
     botCheck = bool
-    
+
     def getMembers(self):
         return self.get_guild(int(self.clientID)).members
-    
+
     async def on_ready(self):
         print("Bot logged in as {0.user}".format(self)) # confirmation that bot has connected and is ready
         for x in self.get_guild(int(self.clientID)).members:
@@ -44,18 +44,18 @@ class client(discord.Client): # (maybe in constructor) ping discord.com?
         if message.author == self.user:
             return # stops the bot from replying to itself
         print("Message from {0.author}: {0.content} in channel {0.channel}".format(message))
-        
+
         if message.author == self.prevAuthor:
             self.messageCount += 1
         else:
             self.prevAuthor = message.author
-            
+
         if self.messageCount >= 5:
             await message.channel.send("That's a lot of messages in a row man")
-            
+
         if message.content == "!users":
             await message.channel.send(f"""# of Members {self.get_guild(int(self.clientID)).member_count}""")
-            
+
         elif message.content == "!chatmode":
             await message.delete()
             while True:
@@ -64,13 +64,13 @@ class client(discord.Client): # (maybe in constructor) ping discord.com?
                     break
                 else:
                     await message.channel.send(f"""{command}""")
-                    
+
         elif message.content == "!tealc":
             await message.channel.send("Indeed.")
-            
+
         elif message.content == "!eu4wiki":
             await message.channel.send("https://eu4.paradoxwikis.com/Europa_Universalis_4_Wiki")
-            
+
         elif message.content.startswith("!run"):
             if message.content.endswith(".py"):
                 await message.channel.send("Indentation error")
@@ -80,19 +80,19 @@ class client(discord.Client): # (maybe in constructor) ping discord.com?
                 await message.channel.send("Segmentation fault")
             else:
                 await message.channel.send("What am I supposed to do with this")
-            
+
         elif message.content == "!help":
             await message.channel.send("Commands:\n" + self.commandList)
-            
+
         elif message.content == "!rollthedice":
             await message.channel.send("The d20 lands on: " + random.randint(1, 20))
-            
+
         elif message.content == "!whereistheiss":
             await message.channel.send(self.ISSdata.position())
-        
+
         elif message.content.startswith("!"): # disabled if another bot is on the server
             await message.channel.send("Error: Unknown command")
-            
+
 #    async def on_member_join(self, member):
 #        for channel in member.server.channels:
 #            if channel == "general":

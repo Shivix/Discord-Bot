@@ -33,20 +33,23 @@ async def iss_pos(message):
     await message.channel.send(position())
 
 class client(discord.Client):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, **options):
+        
+        # get commands from file
+        with open("textCommands.txt", 'r') as file:
+            for line in file:
+                (key, command) = line.strip().split('|')
+                self.text_commands.update({key: command})
+                
+        # create command list string for printing help command
+        super().__init__(**options)
         for key in self.text_commands.keys():
             self.command_list += '\n'
             self.command_list += key
         for key in self.adv_commands.keys():
             self.command_list += '\n'
             self.command_list += key
-            
-        with open("textComands.txt") as file:
-            for line in file:
-                (key, value) = line.split()
-                self.text_commands.update({key: value})
-        
+
     async def user_count(self, message):
         await message.channel.send(f"""# of Members {self.get_guild(int(self.client_ID)).member_count}""")
     
@@ -57,8 +60,7 @@ class client(discord.Client):
     command_prefix = '!'
     message_count = 0
     prev_author = ""
-    text_commands = {"!tealc": "Indeed.",
-                     "": ""}
+    text_commands = {"!tealc": "Indeed."}
 
     adv_commands = {"!users": user_count,
                     "!run": run_file,
